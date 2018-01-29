@@ -1,0 +1,23 @@
+.ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid #42A948;
+}
+
+.ng-invalid:not(form)  {
+    border-left: 5px solid #a94442;
+}
+
+.no-padding {
+    padding: 0px;
+}
+
+.create-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-button {
+    padding: 18px 20px;
+    width: 260px;
+    font-size: 18px;
+}

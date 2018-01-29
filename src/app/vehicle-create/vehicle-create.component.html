@@ -1,0 +1,70 @@
+<app-loader [hidden]="!submitting"></app-loader>
+<div [hidden]="submitting || submitted">
+  {{ diagnostic }}
+  <h2 [hidden]="vehicle.id">Create Vehicle</h2>
+  <h2 [hidden]="!vehicle.id">Edit Vehicle</h2>
+  <form (ngSubmit)="onSubmit()" #vehicleForm="ngForm">
+    <input type="hidden" (ngModel)="vehicle.id" name="id" />
+
+    <div class="form-group">
+      <label for="enrollment">Enrollment</label>
+      <input type="text" class="form-control" id="enrollment" required [(ngModel)]="vehicle.enrollment" name="enrollment" #enrollment="ngModel"/>
+      <div [hidden]="enrollment.valid || enrollment.pristine" class="alert alert-danger">
+         Enrollment is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name" required [(ngModel)]="vehicle.name" name="name" #name="ngModel"/>
+      <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+        Name is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="vehicleFamily">Vehicle Family</label>
+      <select class="form-control" id="vehicleFamily" required [(ngModel)]="vehicle.vehicleFamilyDTO.id" name="vehicleFamilyDTO.id">
+        <option *ngFor="let vehicleFamily of vehicleFamilies" [value]="vehicleFamily.id">{{ vehicleFamily.name }}</option>
+      </select>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-sm-6 no-padding">
+        <label class="col-sm-12" for="owner">Owner</label>
+        <mat-form-field class="col-sm-12">
+          <input type="text" id="owner" aria-label="Number" matInput [formControl]="searchTerm" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let user of searchResults" [value]="user.username + ' - ' + user.name" (onSelectionChange)="vehicle.appUserDTO.id = user.id">
+              {{ user.username + " - " + user.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-6 create-button-container no-padding">
+        <button type="submit" class="btn btn-success create-button" [hidden]="vehicle.id" [disabled]="!vehicleForm.form.valid">Create</button>
+        <button type="submit" class="btn btn-success create-button" [hidden]="!vehicle.id" [disabled]="!vehicleForm.form.valid">Edit</button>
+      </div>
+    </div>
+  </form>
+</div>
+<div [hidden]="!submitted">
+  <h2>You've created the following vehicle:</h2>
+  <div class="row">
+    <div class="col-sm-3">Enrollment</div>
+    <div class="col-sm-9">{{ vehicle.enrollment }}</div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3">Name</div>
+    <div class="col-sm-9">{{ vehicle.name }}</div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3">Vehicle Family</div>
+    <div class="col-sm-9">{{ vehicle.vehicleFamilyDTO.name }}</div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3">Owner</div>
+    <div class="col-sm-9">{{ vehicle.appUserDTO.name }}</div>
+  </div>
+  <button class="btn btn-primary" (click)="submitted = false">Edit</button>
+</div>

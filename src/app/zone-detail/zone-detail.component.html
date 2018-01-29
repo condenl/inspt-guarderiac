@@ -1,0 +1,9 @@
+<h2>Zone {{zone.letter}}</h2>
+<app-loader *ngIf="isLoading"></app-loader>
+<div class="row">
+  <ng-container *ngIf="!isLoading">
+    <app-garage-item *ngFor="let garage of garages" [garage]="garage"></app-garage-item>
+  </ng-container>
+</div>
+
+

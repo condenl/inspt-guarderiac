@@ -1,0 +1,13 @@
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.footer {
+    margin: 0 10px;
+}
+
+.container {
+    flex: 1;
+}
