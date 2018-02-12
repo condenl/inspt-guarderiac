@@ -5,6 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule, MatInputModule } from '@angular/material';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -24,6 +26,7 @@ import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.componen
 import { VehicleService } from './shared/vehicle.service';
 import { VehicleFamilyService } from './shared/vehicle-family.service';
 import { AppUserService } from './shared/app-user.service';
+import { GarageService } from './shared/garage.service';
 
 
 @NgModule({
@@ -49,7 +52,8 @@ import { AppUserService } from './shared/app-user.service';
       {path: 'zones/:zoneId',       component: ZoneDetailComponent},
       {path: 'vehicles',            component: VehicleListingComponent},
       {path: 'vehicles/:vehicleId', component: VehicleDetailComponent},
-      {path: 'create/vehicle',      component: VehicleCreateComponent}
+      {path: 'create/vehicle',      component: VehicleCreateComponent},
+      {path: 'create/garage',      component: GarageCreateComponent}
     ]),
     BrowserModule,
     HttpClientModule,
@@ -57,9 +61,11 @@ import { AppUserService } from './shared/app-user.service';
     BrowserAnimationsModule,
     MatAutocompleteModule,
     MatInputModule,
+    MatCheckboxModule,
+    MatSelectModule,
     ReactiveFormsModule
   ],
-  providers: [ZoneService, VehicleService, VehicleFamilyService, AppUserService],
+  providers: [ZoneService, VehicleService, VehicleFamilyService, AppUserService, GarageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

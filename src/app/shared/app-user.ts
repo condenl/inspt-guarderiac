@@ -24,4 +24,8 @@ export class AppUser {
         return this.username;
     }
 
+    set setId(id: number) {
+        this.id = id;
+    }
+
 }

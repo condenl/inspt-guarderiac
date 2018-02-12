@@ -1,5 +1,69 @@
-<form (ngSubmit)="onSubmit" #garageForm="ngForm">
-  <input type="checkbox" name="maintenanceService" [(ngModel)]="garage.name" />
-  <!-- vehicleId: number;
-  vehicleAssignationDate: Date; -->
-</form>
+<app-loader [hidden]="!submitting"></app-loader>
+<div [hidden]="submitting || submitted">
+  <h2 [hidden]="garage.id">Create Garage</h2>
+  <h2 [hidden]="!garage.id">Edit Garage</h2>
+  <form (ngSubmit)="onSubmit()" #garageForm="ngForm">
+    {{ diagnostic }}
+
+    <div class="form-group">
+      <mat-form-field class="col-sm-12 no-padding">
+          <mat-select placeholder="Assign zone" required [(ngModel)]="garage.zoneDTO.id" name="zoneDTO.id">
+            <mat-option *ngFor="let zone of zones" [value]="zone.id">
+              {{ zone.letter }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field class="col-sm-12 no-padding">
+        <input type="text" placeholder="Owner" aria-label="Number" required matInput [formControl]="userSearchTerm" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let user of userSearchResults" [value]="user.username + ' - ' + user.name" (onSelectionChange)="changeUser(user.id)">
+            {{ user.username + " - " + user.name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field class="col-sm-12 no-padding">
+        <mat-select placeholder="Assign vehicle" [(ngModel)]="garage.vehicleDTO.id" name="vehicleDTO.id">
+          <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle.id">
+            {{ vehicle.name + " - " +  vehicle.enrollment }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-sm-6">
+        <mat-checkbox [color]="primary" [(ngModel)]="garage.maintenanceService" name="maintenanceService">Maintenance Service</mat-checkbox>
+      </div>
+      <div class="col-sm-6 create-button-container no-padding">
+        <button type="submit" class="btn btn-success create-button" [hidden]="garage.id" [disabled]="!garageForm.form.valid">Create</button>
+        <button type="submit" class="btn btn-success create-button" [hidden]="!garage.id" [disabled]="!garageForm.form.valid">Edit</button>
+      </div>
+    </div>
+  </form>
+</div>
+<div [hidden]="!submitted">
+    <h2>You've created the following garage:</h2>
+    <div class="row">
+      <div class="col-sm-3">Zone</div>
+      <div class="col-sm-9">{{ garage.zoneDTO.letter }}</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">Owner</div>
+      <div class="col-sm-9">{{ garage.appUserDTO.name }}</div>
+    </div>
+    <div class="row" [hidden]="!garage.vehicleDTO">
+      <div class="col-sm-3">Vehicle</div>
+      <div class="col-sm-9">{{ garage.vehicleDTO.name + "-" + garage.vehicleDTO.enrollment }}</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">Maintenance Service</div>
+      <div class="col-sm-9">{{ garage.maintenanceService ? "\u2713" : "&#10007;" }}</div>
+    </div>
+    <button class="btn btn-primary" (click)="submitted = false">Edit</button>
+  </div>

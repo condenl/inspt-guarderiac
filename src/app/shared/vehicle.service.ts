@@ -16,4 +16,8 @@ export class VehicleService {
     return this.httpClient.post<Vehicle>("/api/vehicles/create", vehicle);
   }
 
+  public findByUserId(userId: number): Observable<Vehicle[]> {
+    return this.httpClient.get<Vehicle[]>("/api/vehicles/user/" + userId);
+  }
+
 }

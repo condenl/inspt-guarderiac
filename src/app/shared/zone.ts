@@ -1,7 +1,16 @@
 import { VehicleFamily } from "./vehicle-family";
 
-export interface Zone {
+//TODO find a way to keep it encapsulated
+export class Zone {
+
     id: number;
+
     letter: string;
+
     vehicleFamilyDTO: VehicleFamily;
+
+    constructor() {
+        this.vehicleFamilyDTO = new VehicleFamily();
+    }
+
 }

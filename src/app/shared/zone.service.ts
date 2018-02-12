@@ -9,7 +9,7 @@ export class ZoneService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getZones(): Observable<Zone[]> {
+  public getAll(): Observable<Zone[]> {
     return this.httpClient.get<Zone[]>("/api/zones");
   }
 

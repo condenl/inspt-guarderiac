@@ -28,8 +28,7 @@ export class VehicleCreateComponent implements OnInit {
 
   private submitted: boolean = false;
 
-  constructor(private vehicleService: VehicleService, private vehicleFamilyService: VehicleFamilyService, 
-    private appUserService: AppUserService, private httpClient:HttpClient) { }
+  constructor(private vehicleService: VehicleService, private vehicleFamilyService: VehicleFamilyService, private appUserService: AppUserService) { }
 
   ngOnInit() {
     this.vehicleFamilyService.getAll()

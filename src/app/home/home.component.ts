@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
-    this.zoneService.getZones()
+    this.zoneService.getAll()
       .subscribe(zones => {this.zones = zones; this.isLoading = false; console.log(JSON.stringify(zones));},
                 err => console.log("Error retrieving zones: ", JSON.stringify(err)));
   }

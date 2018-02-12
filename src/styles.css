@@ -1,2 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+.no-padding {
+    padding: 0px !important;
+}
+
+.create-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-button {
+    padding: 18px 20px;
+    width: 260px;
+    font-size: 18px;
+}
