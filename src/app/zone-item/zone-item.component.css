@@ -15,14 +15,6 @@
     color: white;
 }
 
-.clickeable {
-    cursor: pointer;
-}
-
-.clickeable:hover{
-    opacity: .8;
-}
-
 figcaption {
     margin: 0px 0px 5px 5px;
 }

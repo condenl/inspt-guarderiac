@@ -16,3 +16,23 @@
     width: 260px;
     font-size: 18px;
 }
+
+.clickeable {
+    cursor: pointer;
+}
+
+.clickeable:hover{
+    opacity: .8;
+}
+
+.w-66 {
+    width: 66.6%;
+}
+
+.w-33 {
+    width: 33.6%;
+}
+
+.user-select-none {
+    user-select: none;
+}

@@ -60,8 +60,16 @@ export class GarageCreateComponent implements OnInit {
     
     this.garageService.create(this.garage).subscribe(data => { this.garage = data; console.log("vehicle saved", data); },
       err => console.log(err),
-      () => { this.submitted = true; this.submitting = false; });
+      () => { this.onSubmitCompleted() });
     console.log("Garage form submitted: ", this.garage);
+  }
+
+  public onSubmitCompleted(): void {
+    this.submitted = true; 
+    this.submitting = false;
+    if (!this.garage.getVehicleDTO) {
+      this.garage.setVehicleDTO = new Vehicle();
+    }
   }
 
   get diagnostic(): string {

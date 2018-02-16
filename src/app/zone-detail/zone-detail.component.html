@@ -1,8 +1,9 @@
 <app-loader [hidden]="!isLoading"></app-loader>
-<section [hidden]="isLoading">
-  <h2>Zone {{zone.letter}}</h2>
-  <div class="row">
-    <app-garage-item *ngFor="let garage of garages" [garage]="garage"></app-garage-item>
-  </div>
-</section>
-
+<div [hidden]="isLoading" class="float-left garages-view-wrapper h-100 w-66">
+  <h2 class="w-100">Zone {{zone.letter}}</h2>
+  <section class="h-100">
+    <div *ngFor="let garage of garages" class="float-left">
+      <app-garage-item  [garage]="garage"></app-garage-item>
+    </div>
+  </section>
+</div>

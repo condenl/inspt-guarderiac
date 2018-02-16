@@ -9,7 +9,7 @@
       <mat-form-field class="col-sm-12 no-padding">
           <mat-select placeholder="Assign zone" required [(ngModel)]="garage.zoneDTO.id" name="zoneDTO.id">
             <mat-option *ngFor="let zone of zones" [value]="zone.id">
-              {{ zone.letter }}
+              {{ zone.letter + " - " + zone.vehicleFamilyDTO.name }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -57,7 +57,7 @@
       <div class="col-sm-3">Owner</div>
       <div class="col-sm-9">{{ garage.appUserDTO.name }}</div>
     </div>
-    <div class="row" [hidden]="!garage.vehicleDTO">
+    <div class="row" *ngIf="garage.vehicleDTO">
       <div class="col-sm-3">Vehicle</div>
       <div class="col-sm-9">{{ garage.vehicleDTO.name + "-" + garage.vehicleDTO.enrollment }}</div>
     </div>

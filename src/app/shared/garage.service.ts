@@ -12,6 +12,10 @@ export class GarageService {
     return this.httpClient.post<Garage>("/api/garages/create", garage);
   }
 
+  public findById(garageId: number): Observable<Garage> {
+    return this.httpClient.get<Garage>("/api/garages/" + garageId);
+  }
+
   public findByZoneId(zoneId: number): Observable<Garage[]> {
     console.log("Id in service", zoneId);
     return this.httpClient.get<Garage[]>("/api/garages?z=" + zoneId);

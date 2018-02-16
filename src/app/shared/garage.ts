@@ -4,28 +4,32 @@ import { Zone } from "./zone";
 
 export class Garage {
 
-    private id: number;
+    id: number;
 
-    private stateCounter: number;
+    stateCounter: number;
 
-    private maintenanceService: boolean;
+    maintenanceService: boolean;
 
-    private kWHConsumed: number;
+    kWHConsumed: number;
 
-    private vehicleDTO: Vehicle;
+    vehicleDTO: Vehicle;
 
-    private vehicleAssignationDate: Date;
+    vehicleAssignationDate: Date;
 
-    private acquireDate: Date;
+    acquireDate: Date;
 
-    private appUserDTO: AppUser;
+    appUserDTO: AppUser;
 
-    private zoneDTO: Zone;
+    zoneDTO: Zone;
 
     constructor() {
         this.vehicleDTO = new Vehicle();
         this.appUserDTO = new AppUser();
         this.zoneDTO = new Zone();
+    }
+
+    get getId(): number {
+        return this.id;
     }
 
     set setId(id: number) {
@@ -34,6 +38,18 @@ export class Garage {
 
     get getAppUserDTO(): AppUser {
         return this.appUserDTO;
+    }
+
+    get getVehicleDTO(): Vehicle {
+        return this.vehicleDTO;
+    }
+
+    set setVehicleDTO(vehicleDTO: Vehicle) {
+        this.vehicleDTO = vehicleDTO;
+    }
+
+    get getZoneDTO(): Zone {
+        return this.zoneDTO;
     }
 
 }
