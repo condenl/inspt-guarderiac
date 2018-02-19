@@ -1,4 +1,9 @@
 .garage-detail {
     width: 370px;
-    height: 460px;
+}
+
+.edit-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ZoneService } from '../shared/zone.service';
 import { Zone } from '../shared/zone';
 import { Garage } from '../shared/garage';
 import { GarageService } from '../shared/garage.service';
+import { AsideROService } from '../shared/aside-ro.service';
 
 @Component({
   selector: 'app-zone-detail',
   templateUrl: './zone-detail.component.html',
   styleUrls: ['./zone-detail.component.css']
 })
-export class ZoneDetailComponent implements OnInit {
+export class ZoneDetailComponent implements OnInit, OnDestroy {
 
   private zone: Zone = new Zone();
 
@@ -18,7 +19,7 @@ export class ZoneDetailComponent implements OnInit {
 
   private isLoading: boolean = true;
 
-  constructor(private route: ActivatedRoute, private zoneService: ZoneService, private garageService: GarageService) { }
+  constructor(private route: ActivatedRoute, private zoneService: ZoneService, private garageService: GarageService, private asideROService: AsideROService) { }
 
   ngOnInit() {
     this.zoneService.getZoneById(this.route.snapshot.params['zoneId']).subscribe(
@@ -35,6 +36,10 @@ export class ZoneDetailComponent implements OnInit {
       err => console.log(err),
       () => this.isLoading = false
     );
+  }
+
+  ngOnDestroy() {
+    this.asideROService.hideRouterOutlet();
   }
 
 }

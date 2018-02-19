@@ -1,18 +1,18 @@
 export class AppUser {
     
-    private id: number;
+    id: number;
     
-    private name: string;
+    name: string;
     
-    private address: string;
+    address: string;
     
-    private document: string;
+    document: string;
     
-    private phone: number;
+    phone: number;
     
-    private entryDate: Date;
+    entryDate: Date;
     
-    private username: string;
+    username: string;
 
     constructor() { }
 

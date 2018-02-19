@@ -2,7 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GarageService } from '../shared/garage.service';
 import { Garage } from '../shared/garage';
-import { AsideROService } from '../shared/AsideROService';
+import { Photo } from '../shared/photo';
+import { RouteUtilsService } from '../shared/route-utils.service';
 
 @Component({
   selector: 'app-garage-detail',
@@ -13,14 +14,19 @@ export class GarageDetailComponent implements OnInit {
 
   private garage: Garage;
 
-  constructor(private route: ActivatedRoute, private garageService: GarageService, private asideROService: AsideROService) { }
+  constructor(private route: ActivatedRoute, private garageService: GarageService, private routeUtils: RouteUtilsService) { }
 
   ngOnInit() {
     this.garageService.findById(this.route.snapshot.params['garageId']).subscribe(
-      garage => this.garage = garage, 
+      garage => this.garage = this.normalizeGarage(garage), 
       err => console.log(err));
-      console.log("init");
+  }
 
+  public normalizeGarage(garage: Garage): Garage {
+    if (garage.vehicleDTO != null && garage.vehicleDTO.photoDTO == null) {
+      garage.vehicleDTO.photoDTO = new Photo();
+    }
+    return garage;
   }
 
 }

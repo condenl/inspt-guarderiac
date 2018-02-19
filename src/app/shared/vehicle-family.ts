@@ -1,6 +1,6 @@
 export class VehicleFamily {
     
-    private id: number;
+    id: number;
     
     name: string;
 

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AsideROService } from './shared/AsideROService';
+import { AsideROService } from './shared/aside-ro.service';
 import { Router } from '@angular/router';
+import { AsideROEvent } from './shared/aside-ro-event.enum';
+import { CodeValue } from './shared/code-value';
 
 @Component({
   selector: 'app-root',
@@ -14,18 +16,24 @@ export class AppComponent implements OnInit {
   constructor(private asideROService: AsideROService, private route: Router) { }
 
   ngOnInit() {
-    this.asideROService.getAsideRO().subscribe(url => this.refreshAsideRO(url));
+    this.asideROService.getAsideRO().subscribe(event => this.updateAsideRO(event));
   }
 
-  public refreshAsideRO(url: string): void {
-    console.log("destroying garage detail, url received:", url);
-    this.route.navigateByUrl(url);
-    this.showAsideRO = false;
-    //poner el loader
-    setTimeout(() => this.postDestroy(url), 1000);
+  public updateAsideRO(event: CodeValue<AsideROEvent, string>): void {
+    console.log("update aside ro", event);
+    if (event != null) {
+      if (event.code == AsideROEvent.REFRESH) {
+        this.route.navigateByUrl(event.value);
+        this.showAsideRO = false;
+        //poner el loader
+        setTimeout(() => this.postDestroy(), 1000);
+      } else {
+        this.showAsideRO = false;
+      }
+    }
   }
 
-  public postDestroy(url: string): void {
+  public postDestroy(): void {
     setTimeout(() => this.showAsideRO = true);
     //sacar el loader
   }

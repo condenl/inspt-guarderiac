@@ -1,3 +1,42 @@
-<p>
-  vehicle-detail works!
-</p>
+<section class="bg-dark text-white details-wrapper p-1">
+  <h5>Vehicle Details</h5>
+
+  <ng-container *ngIf="garage.vehicleDTO">
+    <figure class="text-center m-0">
+      <img width="260px" height="200px" class="mx-auto img-fluid" src="{{ '/api/image/' + garage.vehicleDTO.photoDTO.id }}" onError="this.src = '/images/no-photo.png';" alt="vehicle" />
+      <figcaption class="text-left">
+        <div class="row margin-top-10px">
+          <span class="font-weight-bold col-sm-6">Name:</span>
+          <span class="col-sm-6">{{ garage.vehicleDTO.name }}</span>
+        </div>
+        <div class="row margin-top-5px">
+          <span class="font-weight-bold col-sm-6">Enrollment:</span>
+          <span class="col-sm-6">{{ garage.vehicleDTO.enrollment }}</span>
+        </div>
+        <div class="text-right margin-top-5px">
+          <span class="font-italic">vehile assignated on {{ garage.vehicleAssignationDate }}</span>
+        </div>
+      </figcaption>
+    </figure>
+  </ng-container>
+
+  <ng-container *ngIf="!garage.vehicleDTO">
+    <span class="font-weight-bold">No vehicle assigned yet</span>
+    <form (ngSubmit)="onVehicleChange()" #vehicleForm="ngForm">
+      <div class="form-group">
+        <mat-form-field class="col-sm-12 no-padding">
+          <mat-select placeholder="Assign vehicle" required [(ngModel)]="selectedVehicleId" name="selectedVehicleId">
+            <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle.id">
+              {{ vehicle.enrollment + " - " + vehicle.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-success create-button" [disabled]="!vehicleForm.form.valid">Edit</button>
+      </div>
+    </form>
+  </ng-container>
+
+</section>
+

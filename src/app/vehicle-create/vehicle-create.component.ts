@@ -8,6 +8,7 @@ import { FormControl } from '@angular/forms';
 import 'rxjs/add/operator/debounceTime';
 import { AppUser } from '../shared/app-user';
 import { HttpClient } from '@angular/common/http';
+import { Photo } from '../shared/photo';
 
 @Component({
   selector: "app-vehicle-create",
@@ -45,10 +46,19 @@ export class VehicleCreateComponent implements OnInit {
   public onSubmit(): void {
     this.submitting = true;
     
-    this.vehicleService.create(this.vehicle).subscribe(data => { this.vehicle = data; console.log("vehicle saved", data); },
+    this.vehicleService.create(this.vehicle).subscribe(data => { this.vehicle = this.normalizeVehicle(data); },
       err => console.log(err),
       () => { this.submitted = true; this.submitting = false; });
-    console.log("Vehicle form submitted: ", this.vehicle);
+  }
+
+  public normalizeVehicle(vehicle: Vehicle): Vehicle {
+    if (vehicle.appUserDTO == null) {
+      vehicle.appUserDTO = new AppUser();
+    }
+    if (vehicle.photoDTO == null) {
+      vehicle.photoDTO = new Photo();
+    }
+    return vehicle;
   }
 
   get diagnostic(): string {

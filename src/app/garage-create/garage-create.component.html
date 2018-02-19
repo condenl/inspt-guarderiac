@@ -57,7 +57,7 @@
       <div class="col-sm-3">Owner</div>
       <div class="col-sm-9">{{ garage.appUserDTO.name }}</div>
     </div>
-    <div class="row" *ngIf="garage.vehicleDTO">
+    <div class="row" *ngIf="garage.vehicleDTO.id">
       <div class="col-sm-3">Vehicle</div>
       <div class="col-sm-9">{{ garage.vehicleDTO.name + "-" + garage.vehicleDTO.enrollment }}</div>
     </div>

@@ -1,4 +1,46 @@
 <h2 class="text-white user-select-none">just to align</h2>
-<aside class="float-right garage-detail bg-light w-33" *ngIf="garage">
-  {{ garage.id }}
+<aside class="float-right garage-detail bg-light w-33 p-1" *ngIf="garage">
+
+  <div class="row">
+    <span class="font-weight-bold col-sm-10"><h4>Garage Details</h4></span>
+    <span class="col-sm-2 text-right edit-icon-wrapper clickeable" (click)="routeUtils.routeTo('/')" title="edit garage">
+      <app-app-icon iconId="edit"></app-app-icon>
+    </span>
+  </div>
+  <div class="row">
+    <span class="font-weight-bold col-sm-6">State Counter</span>
+    <span class="col-sm-6">{{ garage.stateCounter }}</span>
+  </div>
+
+  <div class="row margin-top-10px">
+    <span class="font-weight-bold col-sm-6">Maintenance Service</span>
+    <span class="col-sm-6">
+      <ng-container *ngIf="garage.maintenanceService">
+        <app-app-icon iconId="checkmark"></app-app-icon>
+      </ng-container>
+      <ng-container *ngIf="!garage.maintenanceService">
+        <app-app-icon iconId="crossmark"></app-app-icon>
+      </ng-container>
+    </span>
+  </div>
+
+  <div class="row margin-top-10px">
+    <span class="font-weight-bold col-sm-6">kWH Cosumed</span>
+    <span class="col-sm-6">{{ garage.kWHConsumed }}</span>
+  </div>
+
+  <div class="row margin-top-10px">
+    <span class="font-weight-bold col-sm-6">Acquire Date</span>
+    <span class="col-sm-6">{{ garage.acquireDate }}</span>
+  </div>
+
+  <div class="row margin-top-10px">
+    <span class="font-weight-bold col-sm-6">Owner</span>
+    <span class="col-sm-6">{{ garage.appUserDTO.name + ' (' + garage.appUserDTO.username + ')'}}</span>
+  </div>
+
+  <hr class="margin-bottom-0" />
+
+  <app-vehicle-detail [garage]="garage"></app-vehicle-detail>
+
 </aside>

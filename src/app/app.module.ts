@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule, MatInputModule } from '@angular/material';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -25,7 +26,9 @@ import { VehicleFamilyService } from './shared/vehicle-family.service';
 import { AppUserService } from './shared/app-user.service';
 import { GarageService } from './shared/garage.service';
 import { GarageDetailComponent } from './garage-detail/garage-detail.component';
-import { AsideROService } from './shared/AsideROService';
+import { AsideROService } from './shared/aside-ro.service';
+import { AppIconComponent } from './app-icon/app-icon.component';
+import { RouteUtilsService } from './shared/route-utils.service';
 
 
 @NgModule({
@@ -41,7 +44,8 @@ import { AsideROService } from './shared/AsideROService';
     GarageCreateComponent,
     VehicleCreateComponent,
     VehicleDetailComponent,
-    GarageDetailComponent
+    GarageDetailComponent,
+    AppIconComponent
   ],
   imports: [
     RouterModule.forRoot([
@@ -60,9 +64,10 @@ import { AsideROService } from './shared/AsideROService';
     MatInputModule,
     MatCheckboxModule,
     MatSelectModule,
+    MatIconModule,
     ReactiveFormsModule
   ],
-  providers: [ZoneService, VehicleService, VehicleFamilyService, AppUserService, GarageService, AsideROService],
+  providers: [ZoneService, VehicleService, VehicleFamilyService, AppUserService, GarageService, AsideROService, RouteUtilsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -29,6 +29,12 @@
       </select>
     </div>
 
+    <div class="form-group">
+      <label for="photo">Photo</label>
+      <input type="file" class="form-control" id="photo" (change)="vehicle.photoDTO.file = $event.target.files[0]" name="photoDTO.file" accept=".jpg,.jpeg,.png" />
+    </div>
+
+    <input type="hidden" [(ngModel)]="vehicle.appUserDTO.id" name="appUserDTO.id"/>
     <div class="row">
       <div class="form-group col-sm-6 no-padding">
         <label class="col-sm-12" for="owner">Owner</label>
@@ -51,20 +57,27 @@
 <div [hidden]="!submitted">
   <h2>You've created the following vehicle:</h2>
   <div class="row">
-    <div class="col-sm-3">Enrollment</div>
-    <div class="col-sm-9">{{ vehicle.enrollment }}</div>
-  </div>
-  <div class="row">
-    <div class="col-sm-3">Name</div>
-    <div class="col-sm-9">{{ vehicle.name }}</div>
-  </div>
-  <div class="row">
-    <div class="col-sm-3">Vehicle Family</div>
-    <div class="col-sm-9">{{ vehicle.vehicleFamilyDTO.name }}</div>
-  </div>
-  <div class="row">
-    <div class="col-sm-3">Owner</div>
-    <div class="col-sm-9">{{ vehicle.appUserDTO.name }}</div>
+    <div class="col-sm-6">
+      <div class="row">
+        <div class="col-sm-6">Enrollment</div>
+        <div class="col-sm-6">{{ vehicle.enrollment }}</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">Name</div>
+        <div class="col-sm-6">{{ vehicle.name }}</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">Vehicle Family</div>
+        <div class="col-sm-6">{{ vehicle.vehicleFamilyDTO.name }}</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">Owner</div>
+        <div class="col-sm-6">{{ vehicle.appUserDTO.name }}</div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <img width="330px" src="{{ '/api/image/' + vehicle.photoDTO.id }}" onError="this.src = '/images/no-photo.png';" alt="vehicle" />
+    </div>
   </div>
   <button class="btn btn-primary" (click)="submitted = false">Edit</button>
 </div>

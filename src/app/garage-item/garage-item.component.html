@@ -1,7 +1,7 @@
 <figure class="bg-secondary text-light p-1 m-1 clickeable" (click)="destroyAsideRO()">
     <!-- [routerLink]="[ '', {outlets: {'asideRO': ['garage-detail', garage.id]}} ]" -->
-    <img width="220" height="106" *ngIf="garage.vehicleDTO" src="https://loremflickr.com/220/106/car">
-    <img *ngIf="!garage.vehicleDTO" src="/assets/images/available.png">
+    <img width="220" height="105" class="garage-img-bg" *ngIf="garage.vehicleDTO" src="/assets/images/rented.png">
+    <img width="220" height="105" class="garage-img-bg" *ngIf="!garage.vehicleDTO" src="/assets/images/available.png">
     <figcaption>
         <div><span class="font-weight-bold">Owner:</span> {{ garage.appUserDTO.name }}</div>
         <div><span class="font-weight-bold">Maintenance Service:</span> {{ garage.maintenanceService }}</div>
