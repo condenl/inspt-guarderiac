@@ -54,6 +54,7 @@ import { RouteUtilsService } from './shared/route-utils.service';
       {path: 'vehicles/:vehicleId',       component: VehicleDetailComponent},
       {path: 'create/vehicle',            component: VehicleCreateComponent},
       {path: 'create/garage',             component: GarageCreateComponent},
+      {path: 'create/garage/:garageId',   component: GarageCreateComponent},
       {path: 'garage-detail/:garageId',   component: GarageDetailComponent, outlet: 'asideRO'}
     ]),
     BrowserModule,

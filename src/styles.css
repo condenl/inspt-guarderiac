@@ -11,6 +11,16 @@
     align-items: center;
 }
 
+.center-child-elements {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-end {
+    align-self: flex-end;
+}
+
 .create-button {
     padding: 18px 20px;
     width: 260px;

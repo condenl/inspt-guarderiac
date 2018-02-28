@@ -8,6 +8,8 @@ import { AppUserService } from '../shared/app-user.service';
 import { Vehicle } from '../shared/vehicle';
 import { VehicleService } from '../shared/vehicle.service';
 import { GarageService } from '../shared/garage.service';
+import { ActivatedRoute } from '@angular/router';
+import { RouteUtilsService } from '../shared/route-utils.service';
 
 @Component({
   selector: 'app-garage-create',
@@ -26,17 +28,26 @@ export class GarageCreateComponent implements OnInit {
 
   private vehicles: Vehicle[];
 
-  private submitting: boolean = false;
+  private waitingDependencies: boolean = false;
 
   private submitted: boolean = false;
 
-  constructor(private zoneService: ZoneService, private appUserService: AppUserService, private vehicleService: VehicleService,
-    private garageService: GarageService) { }
-    
-  ngOnInit() {
-    this.zoneService.getAll().subscribe(zones => this.zones = zones,
-      err => console.log("Error retrieving zones: ", JSON.stringify(err)));
+  private isEdit: boolean = false;
 
+  constructor(private zoneService: ZoneService, private appUserService: AppUserService, private vehicleService: VehicleService,
+    private garageService: GarageService, private route: ActivatedRoute, private routeUtils: RouteUtilsService) {
+  }
+  
+  ngOnInit() {
+    let garageId: number = this.route.snapshot.params['garageId'];
+    this.isEdit = garageId != null;
+    if (this.isEdit) {
+      this.initEditView(garageId);
+    }
+    
+    this.zoneService.getAll().subscribe(zones => this.zones = zones,
+      err => console.log("Error retrieving zones: ", JSON.stringify(err)));  
+    
     this.userSearchTerm
       .valueChanges
       .debounceTime(400)
@@ -44,19 +55,55 @@ export class GarageCreateComponent implements OnInit {
         .subscribe(searchResults => this.userSearchResults = searchResults));
   }
 
-  public changeUser(userId: number): void {
-    this.garage.getAppUserDTO.setId = userId;
-    this.populateVehiclesByUser(userId);
+  private initEditView(garageId: number): void {
+    this.waitingDependencies = true;
+    this.garageService.findById(garageId).subscribe(
+      garage => this.initEditForm(garage),
+      err => console.log(err),
+      () => this.waitingDependencies = false
+    );
   }
 
-  public populateVehiclesByUser(userId: number): void {
+  private initEditForm(garage: Garage) {
+    this.garage = this.initGarage(garage);
+    this.userSearchTerm.setValue(this.buildUserSelectFrontValue(this.garage.appUserDTO));
+    this.populateVehicles(this.garage.appUserDTO.id, this.garage.zoneDTO.vehicleFamilyDTO.id);
+  }
+
+  public buildUserSelectFrontValue(appUser: AppUser) {
+    return appUser.username + " - " + appUser.name;
+  }
+
+  private initGarage(garage: Garage): Garage { //TODO move this
+    if (garage.vehicleDTO == null || garage.vehicleDTO.id == null) {
+      garage.vehicleDTO = new Vehicle();
+    }
+    return garage;
+  }
+
+  public changeUser(userId: number): void {
+    this.garage.getAppUserDTO.setId = userId;
+    this.populateVehicles(userId, this.garage.zoneDTO.vehicleFamilyDTO.id, true);
+  }
+
+  public changeZone(familyId: number): void {
+    this.populateVehicles(this.garage.appUserDTO.id, familyId, true);
+  }
+
+  public populateVehicles(userId: number, familyId: number, reset = false): void {
     this.vehicles = [];
-    this.vehicleService.findByUserId(userId).subscribe(vehicles => this.vehicles = vehicles,
-      err => console.log("Error retrieving user(id: " + userId + ") vehicles: ", JSON.stringify(err)))
+    if (userId != null && familyId != null) {
+      if (reset) {
+        this.garage.vehicleDTO.id = null;
+      }
+      this.vehicleService.findByOwnerAndType(userId, familyId).subscribe(
+        vehicles => this.vehicles = vehicles,
+        err => console.log("Error retrieving user(id: " + userId + ") vehicles: ", JSON.stringify(err)))
+    }
   }
 
   public onSubmit(): void {
-    this.submitting = true;
+    this.waitingDependencies = true;
     
     this.garageService.create(this.garage).subscribe(
       data => this.garage = this.normalizeGarage(data),
@@ -74,7 +121,7 @@ export class GarageCreateComponent implements OnInit {
 
   public onSubmitCompleted(): void {
     this.submitted = true; 
-    this.submitting = false;
+    this.waitingDependencies = false;
   }
 
   get diagnostic(): string {

@@ -1,14 +1,20 @@
-<app-loader [hidden]="!submitting"></app-loader>
-<div [hidden]="submitting || submitted">
+<app-loader [hidden]="!waitingDependencies"></app-loader>
+<div [hidden]="waitingDependencies || submitted">
   <h2 [hidden]="garage.id">Create Garage</h2>
-  <h2 [hidden]="!garage.id">Edit Garage</h2>
+  <div class="row" [hidden]="!garage.id">
+    <div class="col-sm-10 no-padding">
+      <h2>Edit Garage</h2>
+    </div>
+    <div class="col-sm-2 no-padding text-right center-child-elements">
+        <button type="button" class="btn btn-warning text-white flex-end" (click)="routeUtils.routeTo('/zones/' + garage.zoneDTO.id)">Go Back</button>
+    </div>  
+  </div>
   <form (ngSubmit)="onSubmit()" #garageForm="ngForm">
-    {{ diagnostic }}
 
     <div class="form-group">
       <mat-form-field class="col-sm-12 no-padding">
           <mat-select placeholder="Assign zone" required [(ngModel)]="garage.zoneDTO.id" name="zoneDTO.id">
-            <mat-option *ngFor="let zone of zones" [value]="zone.id">
+            <mat-option *ngFor="let zone of zones" [value]="zone.id" (onSelectionChange)="changeZone(zone.vehicleFamilyDTO.id)">
               {{ zone.letter + " - " + zone.vehicleFamilyDTO.name }}
             </mat-option>
           </mat-select>
@@ -19,8 +25,8 @@
       <mat-form-field class="col-sm-12 no-padding">
         <input type="text" placeholder="Owner" aria-label="Number" required matInput [formControl]="userSearchTerm" [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let user of userSearchResults" [value]="user.username + ' - ' + user.name" (onSelectionChange)="changeUser(user.id)">
-            {{ user.username + " - " + user.name }}
+          <mat-option *ngFor="let user of userSearchResults" [value]="buildUserSelectFrontValue(user)" (onSelectionChange)="changeUser(user.id)">
+            {{ buildUserSelectFrontValue(user) }}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>

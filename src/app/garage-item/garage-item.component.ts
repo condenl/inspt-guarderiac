@@ -26,7 +26,6 @@ export class GarageItemComponent implements OnInit {
   }
 
   public destroyAsideRO(): void {
-    console.log("garage id:" + this.garage.id);
     this.asideROService.destroyChildComponents('/zones/' + this.garage.zoneDTO.id + '(asideRO:garage-detail/' + this.garage.id + ')');
   }
 

@@ -20,7 +20,6 @@ export class AppComponent implements OnInit {
   }
 
   public updateAsideRO(event: CodeValue<AsideROEvent, string>): void {
-    console.log("update aside ro", event);
     if (event != null) {
       if (event.code == AsideROEvent.REFRESH) {
         this.route.navigateByUrl(event.value);

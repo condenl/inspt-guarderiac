@@ -5,6 +5,7 @@ import { Zone } from '../shared/zone';
 import { Garage } from '../shared/garage';
 import { GarageService } from '../shared/garage.service';
 import { AsideROService } from '../shared/aside-ro.service';
+import { RouteUtilsService } from '../shared/route-utils.service';
 
 @Component({
   selector: 'app-zone-detail',
@@ -19,7 +20,8 @@ export class ZoneDetailComponent implements OnInit, OnDestroy {
 
   private isLoading: boolean = true;
 
-  constructor(private route: ActivatedRoute, private zoneService: ZoneService, private garageService: GarageService, private asideROService: AsideROService) { }
+  constructor(private route: ActivatedRoute, private zoneService: ZoneService, private garageService: GarageService, private asideROService: AsideROService ,
+    private routeUtilsService: RouteUtilsService) { }
 
   ngOnInit() {
     this.zoneService.getZoneById(this.route.snapshot.params['zoneId']).subscribe(
@@ -34,8 +36,15 @@ export class ZoneDetailComponent implements OnInit, OnDestroy {
     this.garageService.findByZoneId(this.zone.id).subscribe(
       garages => this.garages = garages,
       err => console.log(err),
-      () => this.isLoading = false
+      () => this.onGaragePopulationComplete()
     );
+  }
+
+  public onGaragePopulationComplete(): void {
+    this.isLoading = false;
+    if (this.garages != null && this.garages.length != 0) {
+      this.routeUtilsService.routeTo('/zones/' + this.zone.id + '(asideRO:garage-detail/' + this.garages[0].id + ')');
+    }
   }
 
   ngOnDestroy() {
