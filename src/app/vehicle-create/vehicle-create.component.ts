@@ -9,6 +9,8 @@ import 'rxjs/add/operator/debounceTime';
 import { AppUser } from '../shared/app-user';
 import { HttpClient } from '@angular/common/http';
 import { Photo } from '../shared/photo';
+import { ActivatedRoute } from '@angular/router';
+import { RouteUtilsService } from '../shared/route-utils.service';
 
 @Component({
   selector: "app-vehicle-create",
@@ -17,19 +19,20 @@ import { Photo } from '../shared/photo';
 })
 export class VehicleCreateComponent implements OnInit {
 
-  private vehicle: Vehicle = new Vehicle();
+  vehicle: Vehicle = new Vehicle();
 
-  private vehicleFamilies: VehicleFamily[];
+  vehicleFamilies: VehicleFamily[];
 
-  private searchTerm: FormControl = new FormControl();
+  searchTerm: FormControl = new FormControl();
 
-  private searchResults: AppUser[];
+  searchResults: AppUser[];
 
-  private submitting: boolean = false;
+  submitting: boolean = false;
 
-  private submitted: boolean = false;
+  submitted: boolean = false;
 
-  constructor(private vehicleService: VehicleService, private vehicleFamilyService: VehicleFamilyService, private appUserService: AppUserService) { }
+  constructor(private vehicleService: VehicleService, private vehicleFamilyService: VehicleFamilyService, private appUserService: AppUserService, 
+    private route: ActivatedRoute, private routeUtils: RouteUtilsService) { }
 
   ngOnInit() {
     this.vehicleFamilyService.getAll()

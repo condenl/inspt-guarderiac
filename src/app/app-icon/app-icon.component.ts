@@ -10,7 +10,7 @@ import { MatIconRegistry } from '@angular/material';
 export class AppIconComponent implements OnInit {
 
   @Input()
-  private iconId: string;
+  iconId: string;
 
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon('crossmark', sanitizer.bypassSecurityTrustResourceUrl('assets/images/cross.svg'));

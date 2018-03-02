@@ -11,9 +11,9 @@ import { Observable } from 'rxjs/Observable';
 })
 export class HomeComponent implements OnInit {
 
-  private zones: Zone[];
+  zones: Zone[];
 
-  private isLoading: boolean;
+  isLoading: boolean;
 
   constructor(private zoneService: ZoneService) { }
 

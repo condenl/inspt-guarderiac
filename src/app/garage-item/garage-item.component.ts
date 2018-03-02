@@ -14,7 +14,7 @@ import { CodeValue } from '../shared/code-value';
 export class GarageItemComponent implements OnInit {
 
   @Input()
-  private garage: Garage;
+  garage: Garage;
 
   constructor(private garageService: GarageService, private asideROService: AsideROService, private vehicleService: VehicleService) { }
 

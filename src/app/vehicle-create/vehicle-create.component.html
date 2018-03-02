@@ -2,7 +2,14 @@
 <div [hidden]="submitting || submitted">
   {{ diagnostic }}
   <h2 [hidden]="vehicle.id">Create Vehicle</h2>
-  <h2 [hidden]="!vehicle.id">Edit Vehicle</h2>
+  <div class="row" [hidden]="!vehicle.id">
+    <div class="col-sm-10 no-padding">
+      <h2>Edit Vehicle</h2>
+    </div>
+    <!-- <div class="col-sm-2 no-padding text-right center-child-elements">
+        <button type="button" class="btn btn-warning text-white flex-end" (click)="routeUtils.routeTo('/zones/' + '1')">Go Back</button>
+    </div>   -->
+  </div>
   <form (ngSubmit)="onSubmit()" #vehicleForm="ngForm">
     <input type="hidden" (ngModel)="vehicle.id" name="id" />
 

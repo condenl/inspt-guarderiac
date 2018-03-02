@@ -12,7 +12,7 @@ import { RouteUtilsService } from '../shared/route-utils.service';
 })
 export class GarageDetailComponent implements OnInit {
 
-  private garage: Garage;
+  garage: Garage;
 
   constructor(private route: ActivatedRoute, private garageService: GarageService, private routeUtils: RouteUtilsService) { }
 

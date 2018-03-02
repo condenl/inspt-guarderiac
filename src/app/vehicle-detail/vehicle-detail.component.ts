@@ -5,6 +5,7 @@ import { Vehicle } from '../shared/vehicle';
 import { VehicleService } from '../shared/vehicle.service';
 import { Photo } from '../shared/photo';
 import { CodeValue } from '../shared/code-value';
+import { RouteUtilsService } from '../shared/route-utils.service';
 
 @Component({
   selector: 'app-vehicle-detail',
@@ -14,13 +15,13 @@ import { CodeValue } from '../shared/code-value';
 export class VehicleDetailComponent implements OnInit {
 
   @Input()
-  private garage: Garage;
+  garage: Garage;
 
   private selectedVehicleId: number;
 
   private vehicles: Vehicle[];
 
-  constructor(private garageService: GarageService, private vehicleService: VehicleService) { }
+  constructor(private garageService: GarageService, private vehicleService: VehicleService, private routeUtils: RouteUtilsService) { }
 
   ngOnInit() {
     if (this.garage.vehicleDTO == null || this.garage.vehicleDTO.id == null) {

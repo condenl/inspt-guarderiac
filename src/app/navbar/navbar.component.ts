@@ -8,7 +8,7 @@ import { RouteUtilsService } from '../shared/route-utils.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private routeUtils: RouteUtilsService) { }
+  constructor(public routeUtils: RouteUtilsService) { }
 
   ngOnInit() {
   }

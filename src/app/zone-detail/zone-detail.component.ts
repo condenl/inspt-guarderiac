@@ -14,11 +14,11 @@ import { RouteUtilsService } from '../shared/route-utils.service';
 })
 export class ZoneDetailComponent implements OnInit, OnDestroy {
 
-  private zone: Zone = new Zone();
+  zone: Zone = new Zone();
 
-  private garages: Garage[];
+  garages: Garage[];
 
-  private isLoading: boolean = true;
+  isLoading: boolean = true;
 
   constructor(private route: ActivatedRoute, private zoneService: ZoneService, private garageService: GarageService, private asideROService: AsideROService ,
     private routeUtilsService: RouteUtilsService) { }

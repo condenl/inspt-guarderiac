@@ -5,7 +5,7 @@
     <div class="col-sm-10 no-padding">
       <h2>Edit Garage</h2>
     </div>
-    <div class="col-sm-2 no-padding text-right center-child-elements">
+    <div class="col-sm-2 no-padding text-right center-child-elements" [hidden]="!isEditFromDetailView">
         <button type="button" class="btn btn-warning text-white flex-end" (click)="routeUtils.routeTo('/zones/' + garage.zoneDTO.id)">Go Back</button>
     </div>  
   </div>
@@ -44,7 +44,7 @@
 
     <div class="row">
       <div class="form-group col-sm-6">
-        <mat-checkbox [color]="primary" [(ngModel)]="garage.maintenanceService" name="maintenanceService">Maintenance Service</mat-checkbox>
+        <mat-checkbox [(ngModel)]="garage.maintenanceService" name="maintenanceService">Maintenance Service</mat-checkbox>
       </div>
       <div class="col-sm-6 create-button-container no-padding">
         <button type="submit" class="btn btn-success create-button" [hidden]="garage.id" [disabled]="!garageForm.form.valid">Create</button>

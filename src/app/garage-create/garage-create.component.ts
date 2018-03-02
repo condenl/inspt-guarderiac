@@ -18,30 +18,30 @@ import { RouteUtilsService } from '../shared/route-utils.service';
 })
 export class GarageCreateComponent implements OnInit {
 
-  private garage: Garage = new Garage();
+  garage: Garage = new Garage();
 
-  private zones: Zone[];
+  zones: Zone[];
 
-  private userSearchTerm: FormControl = new FormControl();
+  userSearchTerm: FormControl = new FormControl();
 
-  private userSearchResults: AppUser[];
+  userSearchResults: AppUser[];
 
-  private vehicles: Vehicle[];
+  vehicles: Vehicle[];
 
-  private waitingDependencies: boolean = false;
+  waitingDependencies: boolean = false;
 
-  private submitted: boolean = false;
+  submitted: boolean = false;
 
-  private isEdit: boolean = false;
+  isEditFromDetailView: boolean = false;
 
   constructor(private zoneService: ZoneService, private appUserService: AppUserService, private vehicleService: VehicleService,
-    private garageService: GarageService, private route: ActivatedRoute, private routeUtils: RouteUtilsService) {
+    private garageService: GarageService, private route: ActivatedRoute, public routeUtils: RouteUtilsService) {
   }
   
   ngOnInit() {
     let garageId: number = this.route.snapshot.params['garageId'];
-    this.isEdit = garageId != null;
-    if (this.isEdit) {
+    this.isEditFromDetailView = garageId != null;
+    if (this.isEditFromDetailView) {
       this.initEditView(garageId);
     }
     

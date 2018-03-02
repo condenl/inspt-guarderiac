@@ -1,0 +1,22 @@
+<div class="center-child-elements h-100">
+  <form (ngSubmit)="login()" #loginForm="ngForm" class="form-signin col-sm-4 center-block float-none-important">
+    <h3 class="align-center">Welcome</h3>
+    <br/>
+
+    <input class="form-control" type="text" required id="username" name="username" placeholder="Username" [(ngModel)]="credentials.username" /> <br/> 
+    <input class="form-control" type="password" required id="password" name="password" placeholder="Password" [(ngModel)]="credentials.password" /> <br /> 
+    
+    <div class="row">
+      <div class="col-sm-7">
+        <button class="col-sm-12 btn btn-primary p-2" type="submit">Login</button>
+      </div>
+      <div class="col-sm-5">
+        <button class="col-sm-12 btn btn-warning p-2" type="button" (click)="routeUtils.routeTo('/')">Registration</button>
+      </div>
+    </div>
+
+    <div class="alert alert-danger" [hidden]="!error">
+      <span>Email or Password invalid, please verify</span>
+    </div>
+  </form>
+</div>

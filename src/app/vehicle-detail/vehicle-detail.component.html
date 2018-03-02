@@ -1,9 +1,13 @@
 <section class="bg-dark text-white details-wrapper p-1">
-  <h5>Vehicle Details</h5>
-
+  <div class="row">
+    <span class="font-weight-bold col-sm-10"><h5>Vehicle Details</h5></span>
+    <span *ngIf="garage.vehicleDTO" class="col-sm-2 text-right center-child-elements clickeable white-svg" (click)="routeUtils.routeTo('/edit/vehicle/' + garage.vehicleDTO.id)" title="edit vehicle">
+      <app-app-icon iconId="edit"></app-app-icon>
+    </span>
+  </div>
   <ng-container *ngIf="garage.vehicleDTO">
     <figure class="text-center m-0">
-      <img width="260px" height="200px" class="mx-auto img-fluid" src="{{ '/api/image/' + garage.vehicleDTO.photoDTO.id }}" onError="this.src = '/images/no-photo.png';" alt="vehicle" />
+      <img width="260px" height="200px" class="mx-auto img-fluid" src="{{ '/api/image/' + garage.vehicleDTO.photoDTO.id }}" onError="this.src = '/assets/images/no-photo.png';" alt="vehicle" />
       <figcaption class="text-left">
         <div class="row margin-top-10px">
           <span class="font-weight-bold col-sm-6">Name:</span>

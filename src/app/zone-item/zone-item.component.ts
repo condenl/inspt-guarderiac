@@ -9,7 +9,7 @@ import { Zone } from '../shared/zone';
 export class ZoneItemComponent implements OnInit {
 
   @Input()
-  private zone: Zone;
+  zone: Zone;
 
   constructor() { }
 

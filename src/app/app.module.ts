@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule, MatInputModule } from '@angular/material';
@@ -29,6 +29,10 @@ import { GarageDetailComponent } from './garage-detail/garage-detail.component';
 import { AsideROService } from './shared/aside-ro.service';
 import { AppIconComponent } from './app-icon/app-icon.component';
 import { RouteUtilsService } from './shared/route-utils.service';
+import { RegistrationComponent } from './registration/registration.component';
+import { LoginComponent } from './login/login.component';
+import { AppService } from './shared/app.service';
+import { XhrInterceptor } from './shared/xhr-interceptor.service';
 
 
 @NgModule({
@@ -45,16 +49,21 @@ import { RouteUtilsService } from './shared/route-utils.service';
     VehicleCreateComponent,
     VehicleDetailComponent,
     GarageDetailComponent,
-    AppIconComponent
+    AppIconComponent,
+    RegistrationComponent,
+    LoginComponent
   ],
   imports: [
     RouterModule.forRoot([
-      {path: '',                          component: HomeComponent},
+      {path: '',                          component: LoginComponent},
+      {path: 'registration',              component: RegistrationComponent},
+      {path: 'home',                      component: HomeComponent},
       {path: 'zones/:zoneId',             component: ZoneDetailComponent},
       {path: 'vehicles/:vehicleId',       component: VehicleDetailComponent},
       {path: 'create/vehicle',            component: VehicleCreateComponent},
+      {path: 'edit/vehicle/:vehicleId',   component: VehicleCreateComponent},
       {path: 'create/garage',             component: GarageCreateComponent},
-      {path: 'create/garage/:garageId',   component: GarageCreateComponent},
+      {path: 'edit/garage/:garageId',     component: GarageCreateComponent},
       {path: 'garage-detail/:garageId',   component: GarageDetailComponent, outlet: 'asideRO'}
     ]),
     BrowserModule,
@@ -68,7 +77,8 @@ import { RouteUtilsService } from './shared/route-utils.service';
     MatIconModule,
     ReactiveFormsModule
   ],
-  providers: [ZoneService, VehicleService, VehicleFamilyService, AppUserService, GarageService, AsideROService, RouteUtilsService],
+  providers: [ZoneService, VehicleService, VehicleFamilyService, AppUserService, GarageService, AsideROService, RouteUtilsService, AppService, 
+    { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
