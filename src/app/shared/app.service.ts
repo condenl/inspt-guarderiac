@@ -22,7 +22,7 @@ export class AppService {
             this.authenticated = false;
         }
         return callback && callback();
-    });
+    }, err => errorCallback && errorCallback());
   }
 
   public logout(): void {

@@ -20,9 +20,11 @@ export class LoginComponent implements OnInit {
 
   public login(): void {
     this.error = false;
-    this.appService.authenticate(this.credentials, () => {
-      this.routeUtils.routeTo('/');
-    });
+    this.appService.authenticate(
+      this.credentials, 
+      () => this.routeUtils.routeTo('/'),
+      err => this.error = true
+    );
   }
 
 }
