@@ -5,7 +5,9 @@ import { Router } from '@angular/router';
 @Injectable()
 export class AppService {
 
-  authenticated = false;
+  authorities: string[] = [];
+
+  authenticated: boolean = false;
 
   constructor(private httpClient: HttpClient, private route: Router) {
   }
@@ -14,12 +16,17 @@ export class AppService {
     const headers = new HttpHeaders(credentials ? {
         authorization: 'Basic ' + btoa(credentials.username + ':' + credentials.password)
     } : {});
-
-    this.httpClient.get('user', {headers: headers}).subscribe(response => {
+    this.authorities = [];
+    this.httpClient.get('/api/user', {headers: headers}).subscribe(response => {
+        console.log(response);
         if (response['name']) {
             this.authenticated = true;
+            for (let auth of response['authorities']) {
+              this.authorities.push(auth['authority']);
+            }
         } else {
             this.authenticated = false;
+            
         }
         return callback && callback();
     }, err => errorCallback && errorCallback());
@@ -28,7 +35,7 @@ export class AppService {
   public logout(): void {
     this.httpClient.post('logout', {}).finally(() => {
       this.authenticated = false;
-      this.route.navigateByUrl('/login');
+      this.route.navigateByUrl('/');
     }).subscribe();
   }
 

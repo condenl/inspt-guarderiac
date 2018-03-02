@@ -11,12 +11,12 @@
         <button class="col-sm-12 btn btn-primary p-2" type="submit">Login</button>
       </div>
       <div class="col-sm-5">
-        <button class="col-sm-12 btn btn-warning p-2" type="button" (click)="routeUtils.routeTo('/')">Registration</button>
+        <button class="col-sm-12 btn btn-warning p-2" type="button" (click)="routeUtils.routeTo('/registration')">Registration</button>
       </div>
     </div>
 
-    <div class="alert alert-danger" [hidden]="!error">
-      <span>Email or Password invalid, please verify</span>
+    <div class="alert alert-danger margin-top-10px" [hidden]="!error">
+      <span>Username or Password invalid, please verify</span>
     </div>
   </form>
 </div>

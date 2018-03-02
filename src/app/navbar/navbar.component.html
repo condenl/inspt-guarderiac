@@ -1,20 +1,25 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Guarderia Caracol</a>
+  <a class="navbar-brand clickeable" (click)="routeUtils.routeTo('/')">Guarderia Caracol</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" (click)="routeUtils.routeTo('/create/vehicle')">Create Vehicle</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" (click)="routeUtils.routeTo('/create/garage')">Create Garage</a>
-      </li>
-    </ul>
+  <div [hidden]="!authenticated()" class="row w-100">
+    <div [hidden]="!canEdit()" class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" (click)="routeUtils.routeTo('/home')">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link clickeable" (click)="routeUtils.routeTo('/create/vehicle')">Create Vehicle</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link clickeable" (click)="routeUtils.routeTo('/create/garage')">Create Garage</a>
+        </li>
+      </ul>
+    </div>
+    <div class="align-right">
+      <a class="nav-link clickeable" (click)="logout()">Logout</a>
+    </div>
   </div>
 </nav>

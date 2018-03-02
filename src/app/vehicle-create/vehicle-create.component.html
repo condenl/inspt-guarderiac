@@ -1,6 +1,5 @@
 <app-loader [hidden]="!submitting"></app-loader>
 <div [hidden]="submitting || submitted">
-  {{ diagnostic }}
   <h2 [hidden]="vehicle.id">Create Vehicle</h2>
   <div class="row" [hidden]="!vehicle.id">
     <div class="col-sm-10 no-padding">
@@ -83,7 +82,7 @@
       </div>
     </div>
     <div class="col-sm-6">
-      <img width="330px" src="{{ '/api/image/' + vehicle.photoDTO.id }}" onError="this.src = '/images/no-photo.png';" alt="vehicle" />
+      <img width="330px" src="{{ '/api/image/' + vehicle.photoDTO.id }}" onError="this.src = '/assets/images/no-photo.png';" alt="vehicle" />
     </div>
   </div>
   <button class="btn btn-primary" (click)="submitted = false">Edit</button>

@@ -4,6 +4,7 @@ import { GarageService } from '../shared/garage.service';
 import { Garage } from '../shared/garage';
 import { Photo } from '../shared/photo';
 import { RouteUtilsService } from '../shared/route-utils.service';
+import { AuthorizeService } from '../shared/authorize.service';
 
 @Component({
   selector: 'app-garage-detail',
@@ -14,7 +15,9 @@ export class GarageDetailComponent implements OnInit {
 
   garage: Garage;
 
-  constructor(private route: ActivatedRoute, private garageService: GarageService, private routeUtils: RouteUtilsService) { }
+  constructor(private route: ActivatedRoute, private garageService: GarageService, private routeUtils: RouteUtilsService, private authorizeService: AuthorizeService) {
+    authorizeService.checkAuthorities();
+  }
 
   ngOnInit() {
     this.garageService.findById(this.route.snapshot.params['garageId']).subscribe(
@@ -27,6 +30,10 @@ export class GarageDetailComponent implements OnInit {
       garage.vehicleDTO.photoDTO = new Photo();
     }
     return garage;
+  }
+
+  public canEdit(): boolean {
+    return this.authorizeService.canEdit();
   }
 
 }

@@ -5,6 +5,7 @@ import { AsideROService } from '../shared/aside-ro.service';
 import { VehicleService } from '../shared/vehicle.service';
 import { Vehicle } from '../shared/vehicle';
 import { CodeValue } from '../shared/code-value';
+import { AuthorizeService } from '../shared/authorize.service';
 
 @Component({
   selector: 'app-garage-item',
@@ -16,7 +17,9 @@ export class GarageItemComponent implements OnInit {
   @Input()
   garage: Garage;
 
-  constructor(private garageService: GarageService, private asideROService: AsideROService, private vehicleService: VehicleService) { }
+  constructor(private garageService: GarageService, private asideROService: AsideROService, private vehicleService: VehicleService, private authorizeService: AuthorizeService) {
+    authorizeService.checkAuthorities();
+  }
 
   ngOnInit() {
     this.vehicleService.getVehicleEdit().subscribe(

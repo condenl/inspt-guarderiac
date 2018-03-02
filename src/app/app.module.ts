@@ -8,6 +8,7 @@ import { MatAutocompleteModule, MatInputModule } from '@angular/material';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -33,6 +34,8 @@ import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
 import { AppService } from './shared/app.service';
 import { XhrInterceptor } from './shared/xhr-interceptor.service';
+import { DuplicatedUserSbComponent } from './duplicated-user-sb/duplicated-user-sb.component';
+import { AuthorizeService } from './shared/authorize.service';
 
 
 @NgModule({
@@ -51,8 +54,10 @@ import { XhrInterceptor } from './shared/xhr-interceptor.service';
     GarageDetailComponent,
     AppIconComponent,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
+    DuplicatedUserSbComponent
   ],
+  entryComponents: [DuplicatedUserSbComponent],
   imports: [
     RouterModule.forRoot([
       {path: '',                          component: LoginComponent},
@@ -75,10 +80,11 @@ import { XhrInterceptor } from './shared/xhr-interceptor.service';
     MatCheckboxModule,
     MatSelectModule,
     MatIconModule,
+    MatSnackBarModule,
     ReactiveFormsModule
   ],
   providers: [ZoneService, VehicleService, VehicleFamilyService, AppUserService, GarageService, AsideROService, RouteUtilsService, AppService, 
-    { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
+    { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }, AuthorizeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

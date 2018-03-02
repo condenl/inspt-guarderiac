@@ -13,7 +13,11 @@ export class LoginComponent implements OnInit {
 
   error: boolean = false;
 
-  constructor(private appService: AppService, public routeUtils: RouteUtilsService) { }
+  constructor(private appService: AppService, public routeUtils: RouteUtilsService) {
+    if (appService.authenticated) {
+      routeUtils.routeTo('/home');
+    }
+  }
 
   ngOnInit() {
   }
@@ -22,7 +26,7 @@ export class LoginComponent implements OnInit {
     this.error = false;
     this.appService.authenticate(
       this.credentials, 
-      () => this.routeUtils.routeTo('/'),
+      () => this.routeUtils.routeTo('/home'),
       err => this.error = true
     );
   }

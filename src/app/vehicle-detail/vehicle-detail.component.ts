@@ -6,6 +6,7 @@ import { VehicleService } from '../shared/vehicle.service';
 import { Photo } from '../shared/photo';
 import { CodeValue } from '../shared/code-value';
 import { RouteUtilsService } from '../shared/route-utils.service';
+import { AuthorizeService } from '../shared/authorize.service';
 
 @Component({
   selector: 'app-vehicle-detail',
@@ -21,7 +22,9 @@ export class VehicleDetailComponent implements OnInit {
 
   private vehicles: Vehicle[];
 
-  constructor(private garageService: GarageService, private vehicleService: VehicleService, private routeUtils: RouteUtilsService) { }
+  constructor(private garageService: GarageService, private vehicleService: VehicleService, private routeUtils: RouteUtilsService, private authorizeService: AuthorizeService) {
+    authorizeService.checkAuthorities();
+  }
 
   ngOnInit() {
     if (this.garage.vehicleDTO == null || this.garage.vehicleDTO.id == null) {

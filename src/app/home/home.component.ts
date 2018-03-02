@@ -3,6 +3,7 @@ import { ZoneService } from '../shared/zone.service';
 import { Zone } from '../shared/zone';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
+import { AuthorizeService } from '../shared/authorize.service';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,9 @@ export class HomeComponent implements OnInit {
 
   isLoading: boolean;
 
-  constructor(private zoneService: ZoneService) { }
+  constructor(private zoneService: ZoneService, private authorizeService: AuthorizeService) {
+    authorizeService.checkAuthorities();
+  }
 
   ngOnInit() {
     this.isLoading = true;

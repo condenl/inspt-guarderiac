@@ -14,6 +14,8 @@ export class AppUser {
     
     username: string;
 
+    password: string;
+
     constructor() { }
 
     get getName(): string {

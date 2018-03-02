@@ -12,4 +12,8 @@ export class AppUserService {
     return this.httpClient.get<AppUser[]>("/api/users/" + term);
   }
 
+  public create(appUser: AppUser): Observable<void> {
+    return this.httpClient.post<void>("/api/user/create", appUser);
+  }
+
 }

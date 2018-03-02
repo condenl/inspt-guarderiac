@@ -6,6 +6,7 @@ import { Garage } from '../shared/garage';
 import { GarageService } from '../shared/garage.service';
 import { AsideROService } from '../shared/aside-ro.service';
 import { RouteUtilsService } from '../shared/route-utils.service';
+import { AuthorizeService } from '../shared/authorize.service';
 
 @Component({
   selector: 'app-zone-detail',
@@ -21,7 +22,9 @@ export class ZoneDetailComponent implements OnInit, OnDestroy {
   isLoading: boolean = true;
 
   constructor(private route: ActivatedRoute, private zoneService: ZoneService, private garageService: GarageService, private asideROService: AsideROService ,
-    private routeUtilsService: RouteUtilsService) { }
+    private routeUtilsService: RouteUtilsService, private authorizeService: AuthorizeService) {
+    authorizeService.checkAuthorities();
+  }
 
   ngOnInit() {
     this.zoneService.getZoneById(this.route.snapshot.params['zoneId']).subscribe(
